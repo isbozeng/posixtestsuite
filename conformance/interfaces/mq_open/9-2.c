@@ -24,6 +24,8 @@
 #include <unistd.h>
 #include <string.h>
 #include <sys/wait.h>
+#include <signal.h>
+
 #include "posixtest.h"
 
 #define NAMESIZE 50

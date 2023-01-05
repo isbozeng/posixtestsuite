@@ -3,7 +3,7 @@
   */
 
 #include <signal.h>
-
+#include <stddef.h>
 stack_t this_type_should_exist, t;
 void *sp;
 size_t size;

@@ -22,7 +22,10 @@
 #define _XOPEN_SOURCE 600
 #include <stdio.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <aio.h>
+#include <sys/time.h>
+#include <sys/resource.h>
 
 #include "posixtest.h"
 

@@ -9,7 +9,7 @@
  /* test if aio.h exists and can be included */
 
 #include <aio.h>
-
+#include <stddef.h>
 int main(void)
 {
 	struct aiocb aiocb;

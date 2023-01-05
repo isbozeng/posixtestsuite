@@ -28,9 +28,11 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <aio.h>
-
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #include "posixtest.h"
-
+#include <signal.h>
 #define TNAME "lio_listio/1-1.c"
 
 #define NUM_AIOCBS	10

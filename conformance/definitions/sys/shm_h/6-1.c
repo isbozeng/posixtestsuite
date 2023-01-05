@@ -20,6 +20,7 @@
  */
 
 #include <sys/shm.h>
+#include <sys/types.h>
 
 struct shmid_ds this_type_should_exist, t;
 
