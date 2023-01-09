@@ -26,6 +26,7 @@ TIMEOUT_VAL = 240
 TIMEOUT_RET = $(shell cat $(top_builddir)/t0.val)
 
 top_builddir = .
+OUT_DIR = $(top_builddir)/build/
 
 LOGFILE = $(top_builddir)/logfile
 ELOGFILE = $(top_builddir)/elogfile
@@ -45,7 +46,7 @@ TIMEOUT = $(top_builddir)/t0 $(TIMEOUT_VAL)
 
 all: build-tests run-tests 
 
-build-tests: $(BUILD_TESTS:.c=.test)
+build-tests: $(BUILD_TESTS:.c=.test) $(top_builddir)/t0 $(top_builddir)/t0.val
 run-tests: $(RUN_TESTS:.test=.run-test)
 
 functional-tests: functional-make functional-run
@@ -65,13 +66,15 @@ INCLUDE = -Iinclude
 
 # FIXME: exaust cmd line length
 clean:
-	@rm -f $(LOGFILE)
+	@rm -f $(LOGFILE)*
 	@rm -f $(ELOGFILE)
 # Timeout helper files
-	@rm -f $(top_builddir)/t0{,.val}
+	@rm -f $(top_builddir)/t0
+	@rm -f $(top_builddir)/t0.val
+	@rm -rf $(OUT_DIR)
 # Built runnable tests
-	@find $(top_builddir) -iname \*.test | xargs -n 40 rm -f {}
-	@find $(top_builddir) -iname \*~ -o -iname \*.o | xargs -n 40 rm -f {}
+	@find $(top_builddir) -iname \*.test | xargs -n 40 rm -rf {}
+	@find $(top_builddir) -iname \*~ -o -iname \*.o | xargs -n 40 rm -rf {}
 	@$(foreach DIR,$(FUNCTIONAL_MAKE),make -C $(DIR) clean >> /dev/null 2>&1;) >> /dev/null 2>&1
 
 # Rule to run a build test
@@ -79,18 +82,20 @@ clean:
 .PRECIOUS: %.test
 %.test: %.o
 	@COMPLOG=$(LOGFILE).$$$$; \
-	[ -f $< ] || exit 0; \
-	{ nm -g $< | grep -q " T main"; } || \
+	[ -f  $< ] || exit 0; \
+	{ nm -g  $< | grep -q " T main"; } || \
 	{ echo "$(@:.test=): link: SKIP" | tee -a $(LOGFILE) && exit 0; }; \
 	if $(CC) $(CFLAGS) $< -o $@ $(LDFLAGS) > $$COMPLOG 2>&1; \
 	then \
 		echo "$(@:.test=): link: PASS" | tee -a $(LOGFILE); \
+		cp $@ $(OUT_DIR)/$@; \
 	else \
 		( \
 			echo "$(@:.test=): link: FAILED. Linker output: "; \
 			cat $$COMPLOG; \
 		) >> $(LOGFILE); \
 		echo "$(@:.test=): link: FAILED "; \
+		echo "$(CC) $(CFLAGS)  $(OUT_DIR)/$< -o $(OUT_DIR)/$@ $(LDFLAGS)"; \
 	fi; \
 	rm -f $$COMPLOG;
 
@@ -141,9 +146,12 @@ clean:
 $(top_builddir)/t0: $(top_builddir)/t0.c
 	@echo Building timeout helper files; \
 	$(CC) -O2 -o $@ $<
+	cp $@ $(top_builddir)/execute.sh  $(OUT_DIR)
+	chmod 755 $(OUT_DIR)/execute.sh
+	mkdir -p $(OUT_DIR)/empty
 	
 $(top_builddir)/t0.val: $(top_builddir)/t0
-	echo `$(top_builddir)/t0 0; echo $$?` > $(top_builddir)/t0.val
+	@echo `$(top_builddir)/t0 0; echo $$?` > $(top_builddir)/t0.val
 	
 %.run-test: %.sh $(top_builddir)/t0 $(top_builddir)/t0.val
 	@COMPLOG=$(LOGFILE).$$$$; \
@@ -166,6 +174,7 @@ $(top_builddir)/t0.val: $(top_builddir)/t0
 .PRECIOUS: %.o
 %.o: %.c
 	@COMPLOG=$(LOGFILE).$$$$; \
+	mkdir -p $(OUT_DIR)/$(dir $@);\
 	if $(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@ $(LDFLAGS) > $$COMPLOG 2>&1; \
 	then \
 		echo "$(@:.o=): build: PASS" | tee -a $(LOGFILE); \
@@ -175,7 +184,7 @@ $(top_builddir)/t0.val: $(top_builddir)/t0
 			cat $$COMPLOG; \
 		) >> $(ELOGFILE); \
 		echo "$(@:.o=): build: FAILED "; \
-		echo "cc:$(CC) cflags:$(CFLAGS) inc:$(INCLUDE) ldflags:$(LDFLAGS)"; \
+		echo "$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@ $(LDFLAGS)"; \
 	fi; \
 	rm -f $$COMPLOG;
 
