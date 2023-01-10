@@ -1,5 +1,8 @@
 *.o
 *.test
 *logfile*
+*buildlog
+localposixtest
+qnxposixtest
 t0*
 .vscode

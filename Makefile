@@ -71,7 +71,7 @@ clean:
 # Timeout helper files
 	@rm -f $(top_builddir)/t0
 	@rm -f $(top_builddir)/t0.val
-	@rm -rf $(OUT_DIR)
+#	@rm -rf $(OUT_DIR)
 # Built runnable tests
 	@find $(top_builddir) -iname \*.test | xargs -n 40 rm -rf {}
 	@find $(top_builddir) -iname \*~ -o -iname \*.o | xargs -n 40 rm -rf {}

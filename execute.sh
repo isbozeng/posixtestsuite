@@ -145,6 +145,7 @@ display_func()
       echo  "*            $TOTAL_HR hours                      *"
       echo  "*            $TOTAL_MIN minutes                    *"
       echo  "*            $TOTAL_SEC seconds                    *"
+      echo  "* OS       : $(uname -a)                     *"
       echo  "*******************************************"
 
 }
