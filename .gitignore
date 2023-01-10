@@ -1,6 +1,7 @@
 *.o
 *.test
 *logfile*
+*buildlog
 t0*
 .vscode
 qnxposixtest

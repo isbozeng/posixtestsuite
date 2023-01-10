@@ -61,7 +61,6 @@ end_func_noday_change()
       TOTAL_HR=`expr $TOTAL_TIME / 3600`
       TOTAL_MIN=`expr $TOTAL_TIME / 60`
       TOTAL_SEC=$TOTAL_TIME
-
       if [ $TOTAL_SEC -gt 60 ]
       then
             TOTAL_SEC=`expr $TOTAL_SEC % 60`
@@ -76,7 +75,6 @@ end_func_noday_change()
       then
             TOTAL_HR=`expr $TOTAL_HR % 60`
       fi
-
 }
 
 # Function to calculate end time
@@ -190,54 +188,54 @@ STRESS_DIR=./empty
 case $1 in
   AIO) echo "Executing asynchronous I/O tests"
       SEARCH_DIR="$BASEDIR/aio_* $BASEDIR/lio_listio*"
-      PASSLOG=./log/aiopasslog
-      FAILLOG=./log/aiofaillog
+      PASSLOG=./log/AIOlog
+      FAILLOG=./log/AIOelog
 	;;
   SIG) echo "Executing signals tests"
       SEARCH_DIR="$BASEDIR/sig* $BASEDIR/raise $BASEDIR/kill $BASEDIR/killpg $BASEDIR/pthread_kill $BASEDIR/pthread_sigmask"
-      PASSLOG=./log/sigpasslog
-      FAILLOG=./log/sigfaillog      
+      PASSLOG=./log/SIGlog
+      FAILLOG=./log/SIGelog      
 	;;
   SEM) echo "Executing semaphores tests"
       SEARCH_DIR="$BASEDIR/sem*"
-      PASSLOG=./log/sempasslog
-      FAILLOG=./log/semfaillog           
+      PASSLOG=./log/SEMlog
+      FAILLOG=./log/SEMelog           
 	;;
   THR) echo "Executing threads tests"
       SEARCH_DIR="$BASEDIR/pthread_*"
-      PASSLOG=./log/thrpasslog
-      FAILLOG=./log/thrfaillog           
+      PASSLOG=./log/THRlog
+      FAILLOG=./log/THRelog           
 	;;
   TMR) echo "Executing timers and clocks tests"
       SEARCH_DIR="$BASEDIR/time* $BASEDIR/*time $BASEDIR/clock* $BASEDIR/nanosleep"
-      PASSLOG=./log/tmrpasslog
-      FAILLOG=./log/tmrfaillog           
+      PASSLOG=./log/TMRlog
+      FAILLOG=./log/TMRelog           
 	;;
   MSG) echo "Executing message queues tests"
       SEARCH_DIR="$BASEDIR/mq_*"
-      PASSLOG=./log/msgpasslog
-      FAILLOG=./log/msgfaillog           
+      PASSLOG=./log/MSGlog
+      FAILLOG=./log/MSGelog           
 	;;
   TPS) echo "Executing process and thread scheduling tests"
       SEARCH_DIR="$BASEDIR/*sched*"
-      PASSLOG=./log/tpspasslog
-      FAILLOG=./log/tpsfaillog           
+      PASSLOG=./log/TPSlog
+      FAILLOG=./log/TPSelog           
 	;;
   MEM) echo "Executing mapped, process and shared memory tests"
       SEARCH_DIR="$BASEDIR/m*lock* $BASEDIR/m*map $BASEDIR/shm_*"
-      PASSLOG=./log/mempasslog
-      FAILLOG=./log/memfaillog           
+      PASSLOG=./log/MEMlog
+      FAILLOG=./log/MEMelog           
 	;;
   STR) echo "Executing mapped, stress tests"
       SEARCH_DIR=./empty
       STRESS_DIR=./stress
-      PASSLOG=./log/stresspasslog
-      FAILLOG=./log/stressfaillog           
+      PASSLOG=./log/STRlog
+      FAILLOG=./log/STRelog           
 	;;      
   ALL) echo "Executing mapped, all of conformance tests"
       SEARCH_DIR=./conformance
-      PASSLOG=./log/passlog
-      FAILLOG=./log/faillog           
+      PASSLOG=./log/ALLlog
+      FAILLOG=./log/ALLelog           
 	;;      
   *)	usage
 	exit 1
