@@ -1,5 +1,6 @@
 INCLUDE = -I../../include
-LIB=-lrt -lpthread
+LIB=
+#-lrt -lpthread
 
 CFLAGS=-Wall -O2 -g
 

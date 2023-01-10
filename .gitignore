@@ -3,3 +3,5 @@
 *logfile*
 t0*
 .vscode
+qnxposixtest
+localposixtest

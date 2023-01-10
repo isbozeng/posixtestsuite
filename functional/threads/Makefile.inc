@@ -5,4 +5,4 @@
 # NOTE: Before making the test suite, you need to build glibc. $LIBC_PATCH 
 # stands for the path of GLIBC, please export it first.
 
-LDFLAGS += -lpthread
+#LDFLAGS += -lpthread

@@ -12,7 +12,8 @@ INCLUDE = -I../../../include
 
 LDPATH =
 
-LIB = -lrt
+LIB= 
+#-lrt
 
 all:	twopsetclock.test invaliddates.test
 

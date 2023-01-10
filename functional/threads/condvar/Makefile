@@ -5,7 +5,7 @@
 # source tree.
 
 CFLAGS := -Wall -I../../../include -O2
-LDFLAGS := -lpthread -lrt
+#LDFLAGS := -lpthread -lrt
 
 include /opt/libc/Makefile.inc
 
