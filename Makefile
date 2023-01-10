@@ -26,7 +26,7 @@ TIMEOUT_VAL = 240
 TIMEOUT_RET = $(shell cat $(top_builddir)/t0.val)
 
 top_builddir = .
-OUT_DIR = $(top_builddir)/build/
+OUT_DIR = $(top_builddir)/localposixtest/
 
 LOGFILE = $(top_builddir)/logfile
 ELOGFILE = $(top_builddir)/elogfile
