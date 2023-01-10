@@ -137,18 +137,20 @@ display_func()
       echo  "*******************************************"
       echo  "*         EXECUTION TIME STATISTICS       *"
       echo  "*******************************************"
+      echo  "* OS       : $(uname -a) *"      
       echo  "* START    : $START_DATE *"
       echo  "* END      : $END_DATE *"
       echo  "* DURATION :                              *"
       echo  "*            $TOTAL_HR hours                      *"
-      echo  "*            $TOTAL_MIN minutes                    *"
-      echo  "*            $TOTAL_SEC seconds                    *"
+      echo  "*            $TOTAL_MIN minutes                   *"
+      echo  "*            $TOTAL_SEC seconds                   *"      
       echo  "*******************************************"
       echo
       echo >> $PASSLOG
       echo  "*******************************************" >> $PASSLOG
       echo  "*         EXECUTION TIME STATISTICS       *" >> $PASSLOG
       echo  "*******************************************" >> $PASSLOG
+      echo  "* OS       : $(uname -a) *" >> $PASSLOG           
       echo  "* START    : $START_DATE *" >> $PASSLOG
       echo  "* END      : $END_DATE *"
       echo  "* DURATION :                              *" >> $PASSLOG
